@@ -1,0 +1,88 @@
+# PokéClub 🎮
+
+**Tu aventura, tus logros.**
+
+PokéClub es una comunidad inspirada en el universo Pokémon, desarrollada como proyecto académico para compartir logros, colecciones de cartas y experiencias de videojuegos con otros entrenadores.
+
+## ✨ Funcionalidades
+
+- Registro de usuarios e inicio y cierre de sesión.
+- Feed público con las últimas publicaciones de la comunidad.
+- Creación de publicaciones con título, descripción, categoría e imagen opcional.
+- Perfiles públicos con información y publicaciones de cada entrenador.
+- Edición del nombre visible, biografía y contraseña.
+- Actualización de publicaciones en tiempo real.
+- Interfaz adaptable a diferentes tamaños de pantalla.
+
+## 🛠️ Tecnologías utilizadas
+
+- Vue 3 y componentes Single-File Components.
+- Vite.
+- Tailwind CSS y CSS.
+- Vue Router.
+- Supabase: PostgreSQL, Authentication, Storage y Realtime.
+- JavaScript.
+
+## 🚀 Instalación y ejecución local
+
+### Requisitos
+
+- Node.js y npm.
+- Un proyecto de Supabase configurado.
+
+### Pasos
+
+1. Clonar el repositorio:
+
+   ```bash
+   git clone https://github.com/GregoruttiMaxi24/Pokeclub.git
+   cd Pokeclub
+   ```
+
+2. Instalar las dependencias:
+
+   ```bash
+   npm install
+   ```
+
+3. Crear un archivo `.env` en la raíz del proyecto con las variables de conexión:
+
+   ```env
+   VITE_SUPABASE_URL=tu_url_de_supabase
+   VITE_SUPABASE_PUBLISHABLE_KEY=tu_clave_publica
+   ```
+
+4. Iniciar el servidor de desarrollo:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Abrir en el navegador la dirección local que indique la terminal.
+
+## 🏗️ Compilación
+
+Para generar la versión de producción:
+
+```bash
+npm run build
+```
+
+Los archivos compilados se generan en la carpeta `dist`.
+
+## 🔐 Seguridad
+
+Las credenciales de conexión se configuran mediante variables de entorno. Las tablas y los recursos de Supabase deben contar con las políticas de acceso correspondientes.
+
+No se deben publicar claves secretas ni claves `service_role`.
+
+## 🎓 Información académica
+
+- **Carrera:** Diseño y Desarrollo Web
+- **Materia:** Clientes Web Mobile
+- **Carácter:** Primer parcial
+- **Año:** 2026
+
+---
+
+Proyecto académico desarrollado por Máximo Gregorutti.
