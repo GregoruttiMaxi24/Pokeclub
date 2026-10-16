@@ -1,0 +1,9 @@
+Carrera: Diseño y Desarrollo Web  
+Materia: Clientes Web Mobile  
+Cuatrimestre: 4.to cuatrimestre  
+Año: 2026  
+Turno: Noche 
+Comisión: DWN4AV  
+Apellido y nombre: Gregorutti Máximo - Ortiz Alan 
+Docente: Santiago Gallino  
+Carácter de entrega: 1.er parcial

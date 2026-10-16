@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-/* 1. Identidad visual */
+/* =========================================================
+   1. Identidad visual y variables globales
+   ========================================================= */
 :root {
   font-family: Arial, Helvetica, sans-serif;
   color: #172554;
@@ -17,10 +19,13 @@
   --color-highlight: #facc15;
   --color-border: #172554;
   --color-muted: #475569;
+
   --shadow-retro: 4px 4px 0 #172554;
 }
 
-/* 2. Reinicio y elementos generales */
+/* =========================================================
+   2. Reinicio y elementos generales
+   ========================================================= */
 * {
   box-sizing: border-box;
 }
@@ -80,7 +85,9 @@ img {
   outline-offset: 3px;
 }
 
-/* 3. Estructura principal */
+/* =========================================================
+   3. Estructura principal
+   ========================================================= */
 .app-shell {
   min-height: 100vh;
   display: flex;
@@ -97,7 +104,9 @@ img {
   padding-block: 42px 64px;
 }
 
-/* 4. Encabezado */
+/* =========================================================
+   4. Encabezado y navegación
+   ========================================================= */
 .site-header {
   background: var(--color-primary);
   color: #fff;
@@ -155,7 +164,9 @@ img {
   color: var(--color-primary);
 }
 
-/* 5. Bienvenida */
+/* =========================================================
+   5. Bienvenida
+   ========================================================= */
 .welcome-section {
   padding: clamp(24px, 4vw, 42px);
   background: var(--color-highlight);
@@ -188,7 +199,9 @@ img {
   line-height: 1.7;
 }
 
-/* 6. Formularios: registro, acceso y publicación */
+/* =========================================================
+   6. Tarjetas de formularios y publicación
+   ========================================================= */
 .auth-card,
 .publish-card {
   width: min(100%, 620px);
@@ -230,6 +243,9 @@ img {
   color: var(--color-muted);
 }
 
+/* =========================================================
+   7. Campos, botones y mensajes de formularios
+   ========================================================= */
 .auth-form {
   display: flex;
   flex-direction: column;
@@ -300,7 +316,8 @@ img {
   transform: translateY(-2px);
 }
 
-.auth-card a {
+.auth-card a,
+.empty-feed a {
   color: #1d4ed8;
   font-weight: 700;
   text-underline-offset: 3px;
@@ -321,7 +338,9 @@ img {
   color: #b91c1c;
 }
 
-/* 7. Vista previa de imágenes */
+/* =========================================================
+   8. Vista previa de imágenes
+   ========================================================= */
 .image-preview {
   display: grid;
   gap: 12px;
@@ -347,7 +366,9 @@ img {
   color: var(--color-primary);
 }
 
-/* 8. Feed */
+/* =========================================================
+   9. Feed y encabezado de sección
+   ========================================================= */
 .feed-section {
   margin-top: 48px;
 }
@@ -377,7 +398,9 @@ img {
   margin-top: 24px;
 }
 
-/* 9. Tarjetas individuales */
+/* =========================================================
+   10. Tarjetas de publicaciones
+   ========================================================= */
 .post-card {
   min-width: 0;
   padding: 20px;
@@ -387,11 +410,6 @@ img {
   border-radius: 12px;
   box-shadow: var(--shadow-retro);
   transition: transform 160ms ease, box-shadow 160ms ease;
-}
-
-.post-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 6px 7px 0 var(--color-border);
 }
 
 .post-card-header {
@@ -406,6 +424,24 @@ img {
   color: var(--color-primary);
   font-weight: 800;
   overflow-wrap: anywhere;
+}
+
+.post-author-link {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.post-author-link:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.post-author-link:focus-visible {
+  outline: 3px solid var(--color-highlight);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 .post-category {
@@ -446,7 +482,17 @@ img {
   white-space: pre-wrap;
 }
 
-/* 10. Feed vacío, carga y errores */
+/* Efectos hover solo en dispositivos con cursor */
+@media (hover: hover) and (pointer: fine) {
+  .post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 6px 7px 0 var(--color-border);
+  }
+}
+
+/* =========================================================
+   11. Feed vacío, carga y errores
+   ========================================================= */
 .empty-feed {
   margin-top: 24px;
   padding: 36px 24px;
@@ -468,13 +514,61 @@ img {
   line-height: 1.7;
 }
 
-.empty-feed a {
-  color: #1d4ed8;
-  font-weight: 700;
-  text-underline-offset: 3px;
+/* =========================================================
+   12. Configuración de cuenta
+   ========================================================= */
+.settings-intro {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 2rem;
+  padding: 1.5rem;
+  background: var(--color-background);
+  border: 3px solid var(--color-border);
+  border-radius: 10px;
+  box-shadow: 5px 5px 0 var(--color-border);
 }
 
-/* 11. Pie de página */
+.settings-intro .eyebrow {
+  margin: 0 0 0.6rem;
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.settings-intro h1 {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.settings-intro-description {
+  margin: 0.75rem 0 0;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.settings-card {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 1.5rem;
+}
+
+.settings-card + .settings-card {
+  margin-top: 1.5rem;
+}
+
+.settings-card h2 {
+  margin-top: 0;
+}
+
+/* =========================================================
+   13. Pie de página
+   ========================================================= */
 .site-footer {
   margin-top: auto;
   padding: 24px 20px;
@@ -489,7 +583,9 @@ img {
   line-height: 1.6;
 }
 
-/* 12. Adaptación a tabletas */
+/* =========================================================
+   14. Adaptación a tabletas
+   ========================================================= */
 @media (max-width: 800px) {
   .post-list {
     grid-template-columns: 1fr;
@@ -501,7 +597,9 @@ img {
   }
 }
 
-/* 13. Adaptación a celulares */
+/* =========================================================
+   15. Adaptación a celulares
+   ========================================================= */
 @media (max-width: 640px) {
   .container {
     width: calc(100% - 28px);
@@ -551,18 +649,37 @@ img {
   .empty-feed {
     padding: 28px 18px;
   }
+
+  .settings-intro {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    box-shadow: 3px 3px 0 var(--color-border);
+  }
+
+  .settings-intro h1 {
+    font-size: 1.65rem;
+  }
+
+  .settings-intro-description {
+    font-size: 0.95rem;
+  }
+
+  .settings-card {
+    padding: 1rem;
+  }
 }
 
-
+/* Ajustes para celulares muy angostos */
 @media (max-width: 380px) {
   .auth-card,
   .publish-card {
     padding: 18px 14px;
   }
-
 }
 
-/* 14. Preferencias de movimiento reducido */
+/* =========================================================
+   16. Preferencias de movimiento reducido
+   ========================================================= */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -579,106 +696,5 @@ img {
   .post-card:hover,
   .auth-form button:hover:not(:disabled) {
     transform: none;
-  }
-}
-
-.post-author-link {
-  display: inline-block;
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.post-author-link:hover {
-  color: #dc2626;
-  text-decoration: underline;
-}
-
-.post-author-link:focus-visible {
-  outline: 3px solid #facc15;
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-/* Configuración de la cuenta */
-.settings-card + .settings-card {
-  margin-top: 1.5rem;
-}
-
-/* Separación entre el encabezado y las secciones */
-.settings-card {
-  padding: 1.5rem;
-}
-
-.settings-card h2 {
-  margin-top: 0;
-}
-
-/* Encabezado de configuración */
-.settings-intro {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  margin: 0 0 2rem;
-  padding: 1.5rem;
-  box-sizing: border-box;
-  background: #fff7e6;
-  border: 3px solid #172554;
-  border-radius: 10px;
-  box-shadow: 5px 5px 0 #172554;
-}
-
-.settings-intro .eyebrow {
-  margin: 0 0 0.6rem;
-  color: #dc2626;
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-}
-
-.settings-intro h1 {
-  margin: 0;
-  color: #172554;
-  font-size: clamp(1.5rem, 5vw, 2.2rem);
-  line-height: 1.2;
-  overflow-wrap: anywhere;
-}
-
-.settings-intro-description {
-  margin: 0.75rem 0 0;
-  color: #374151;
-  line-height: 1.6;
-}
-
-/* Formularios siempre apilados */
-.settings-card {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.settings-card + .settings-card {
-  margin-top: 1.5rem;
-}
-
-/* Ajustes para celulares */
-@media (max-width: 600px) {
-  .settings-intro {
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    box-shadow: 3px 3px 0 #172554;
-  }
-
-  .settings-intro h1 {
-    font-size: 1.65rem;
-  }
-
-  .settings-intro-description {
-    font-size: 0.95rem;
-  }
-
-  .settings-card {
-    padding: 1rem;
   }
 }

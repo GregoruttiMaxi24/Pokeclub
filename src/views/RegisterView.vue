@@ -11,12 +11,21 @@ const error = ref('')
 const cargando = ref(false)
 
 async function registrarUsuario() {
+  if (cargando.value) return
+
   mensaje.value = ''
   error.value = ''
 
   const nombreLimpio = nombre.value.trim()
+  if (nombreLimpio.length < 2 || nombreLimpio.length > 60) {
+    error.value = 'El nombre visible debe tener entre 2 y 60 caracteres.'
+    return
+  }
+
   const usernameLimpio = username.value.trim().toLowerCase()
   const emailLimpio = email.value.trim().toLowerCase()
+
+  
 
   if (!nombreLimpio || !usernameLimpio || !emailLimpio || !password.value) {
     error.value = 'Completá todos los campos.'
@@ -85,49 +94,20 @@ async function registrarUsuario() {
 
       <form class="auth-form" @submit.prevent="registrarUsuario">
         <label for="nombre">Nombre visible</label>
-        <input
-          id="nombre"
-          v-model="nombre"
-          type="text"
-          autocomplete="name"
-          maxlength="60"
-          required
-        />
+        <input id="nombre" v-model="nombre" type="text" autocomplete="name" maxlength="60" required />
 
         <label for="username">Nombre de usuario</label>
-        <input
-          id="username"
-          v-model="username"
-          type="text"
-          autocomplete="username"
-          minlength="3"
-          maxlength="20"
-          pattern="[A-Za-z0-9_]+"
-          aria-describedby="username-help"
-          required
-        />
+        <input id="username" v-model="username" type="text" autocomplete="username" minlength="3" maxlength="20"
+          pattern="[A-Za-z0-9_]+" aria-describedby="username-help" required />
         <small id="username-help">
           De 3 a 20 caracteres: letras, números o guion bajo.
         </small>
 
         <label for="email">Correo electrónico</label>
-        <input
-          id="email"
-          v-model="email"
-          type="email"
-          autocomplete="email"
-          required
-        />
+        <input id="email" v-model="email" type="email" autocomplete="email" required />
 
         <label for="password">Contraseña</label>
-        <input
-          id="password"
-          v-model="password"
-          type="password"
-          autocomplete="new-password"
-          minlength="8"
-          required
-        />
+        <input id="password" v-model="password" type="password" autocomplete="new-password" minlength="8" required />
 
         <button type="submit" :disabled="cargando">
           {{ cargando ? 'Creando cuenta...' : 'Registrarme' }}

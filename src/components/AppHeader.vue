@@ -7,7 +7,8 @@ const router = useRouter()
 const usuario = ref(null)
 const cargandoSesion = ref(true)
 let suscripcionAuth = null
-
+const cerrandoSesion = ref(false)
+const errorSesion = ref('')
 /**
  * Obtiene la sesión actual y escucha los cambios de autenticación.
  */
@@ -40,26 +41,31 @@ onUnmounted(() => {
  * Cierra la sesión y redirige al inicio.
  */
 async function cerrarSesion() {
-  const { error } = await supabase.auth.signOut()
+  if (cerrandoSesion.value) return
 
-  if (error) {
-    console.error('Error al cerrar sesión:', error)
-    return
+  cerrandoSesion.value = true
+  errorSesion.value = ''
+
+  try {
+    const { error } = await supabase.auth.signOut()
+
+    if (error) throw error
+
+    usuario.value = null
+    await router.replace('/')
+  } catch (e) {
+    console.error('Error al cerrar sesión:', e)
+    errorSesion.value = 'No pudimos cerrar la sesión. Intentá nuevamente.'
+  } finally {
+    cerrandoSesion.value = false
   }
-
-  usuario.value = null
-  await router.push('/')
 }
 </script>
 
 <template>
   <header class="site-header">
     <div class="container">
-      <RouterLink
-        class="brand"
-        to="/"
-        aria-label="PokéClub, ir al inicio"
-      >
+      <RouterLink class="brand" to="/" aria-label="PokéClub, ir al inicio">
         <span class="brand-name">PokéClub</span>
         <span class="brand-tagline">Tu aventura, tus logros.</span>
       </RouterLink>
@@ -73,23 +79,23 @@ async function cerrarSesion() {
         </template>
 
         <template v-else-if="usuario">
-          <RouterLink
-            :to="{
-              name: 'profile',
-              params: {
-                username: usuario.user_metadata?.username || '',
-              },
-            }"
-            v-if="usuario.user_metadata?.username"
-          >
+          <RouterLink :to="{
+            name: 'profile',
+            params: {
+              username: usuario.user_metadata?.username || '',
+            },
+          }" v-if="usuario.user_metadata?.username">
             Mi perfil
           </RouterLink>
 
           <RouterLink to="/ajustes">Configuración</RouterLink>
 
-          <button type="button" @click="cerrarSesion">
-            Cerrar sesión
+          <button type="button" :disabled="cerrandoSesion" @click="cerrarSesion">
+            {{ cerrandoSesion ? 'Cerrando sesión...' : 'Cerrar sesión' }}
           </button>
+          <p v-if="errorSesion" role="alert" class="form-error">
+            {{ errorSesion }}
+          </p>
         </template>
       </nav>
     </div>

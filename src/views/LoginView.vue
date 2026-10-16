@@ -12,6 +12,8 @@ const error = ref('')
 const cargando = ref(false)
 
 async function iniciarSesion() {
+  if (cargando.value) return
+
   mensaje.value = ''
   error.value = ''
   cargando.value = true
@@ -30,7 +32,17 @@ async function iniciarSesion() {
       throw new Error('Correo o contraseña incorrectos. Revisá los datos e intentá nuevamente.')
     }
 
-    await router.push('/')
+    const destino = router.currentRoute.value.query.redirect
+
+    if (
+      typeof destino === 'string' &&
+      destino.startsWith('/') &&
+      !destino.startsWith('//')
+    ) {
+      await router.replace(destino)
+    } else {
+      await router.replace('/')
+    }
   } catch (e) {
     error.value = e.message || 'No pudimos iniciar sesión. Intentá nuevamente.'
   } finally {
@@ -48,22 +60,10 @@ async function iniciarSesion() {
 
       <form class="auth-form" @submit.prevent="iniciarSesion">
         <label for="email">Correo electrónico</label>
-        <input
-          id="email"
-          v-model="email"
-          type="email"
-          autocomplete="email"
-          required
-        />
+        <input id="email" v-model="email" type="email" autocomplete="email" required />
 
         <label for="password">Contraseña</label>
-        <input
-          id="password"
-          v-model="password"
-          type="password"
-          autocomplete="current-password"
-          required
-        />
+        <input id="password" v-model="password" type="password" autocomplete="current-password" required />
 
         <button type="submit" :disabled="cargando">
           {{ cargando ? 'Ingresando...' : 'Iniciar sesión' }}
